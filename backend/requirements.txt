@@ -1,0 +1,36 @@
+# SmartEdge AI Inspector — Backend Dependencies
+# Run: pip install -r requirements.txt
+
+# ── Core web framework ──────────────────────────────────────────────
+fastapi
+uvicorn[standard]
+python-multipart
+python-dotenv
+pydantic
+
+# ── Image / AI ──────────────────────────────────────────────────────
+pillow
+numpy
+opencv-python-headless
+torch
+torchvision
+
+# ── AquaGuard — Fish Disease Detection ──────────────────────────────
+tensorflow>=2.12.0           # Keras model inference (MobileNetV2)
+
+# ── Gemini / Google AI ──────────────────────────────────────────────
+google-generativeai
+google-genai
+
+# ── Google Auth (token verification) ────────────────────────────────
+google-auth
+requests
+
+# ── HTTP client (used for ElevenLabs TTS proxy) ──────────────────────
+httpx
+
+# ── SSL cert bundle — fixes macOS dev SSL issues ─────────────────────
+certifi
+
+# ── Reporting ────────────────────────────────────────────────────────
+reportlab

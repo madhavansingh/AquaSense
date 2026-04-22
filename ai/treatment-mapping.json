@@ -1,0 +1,241 @@
+{
+  "Aeromoniasis": {
+    "explanation": "A bacterial infection caused by Aeromonas bacteria. It causes red sores, ulcers, and bleeding under the skin. Spreads fast in warm, dirty water.",
+    "immediate_action": [
+      "Isolate all visibly infected fish immediately",
+      "Do a 30% water change in the main tank",
+      "Stop feeding for 24 hours to reduce ammonia buildup"
+    ],
+    "treatment": "Isolate visibly sick fish immediately. Do a 30% water change to improve water quality.",
+    "medication": "Mix Oxytetracycline (or vet-recommended antibiotic) with feed for 7-10 days.",
+    "medication_steps": [
+      "Use Oxytetracycline antibiotic mixed into feed",
+      "Continue treatment for 7-10 days — do not stop early",
+      "Apply 1-2% salt bath to isolated fish for stress relief"
+    ],
+    "water_management": "Increase aeration. Check and lower ammonia levels.",
+    "feeding_advice": "Reduce feeding by half so leftover food doesn't pollute the water.",
+    "farm_improvement": [
+      "Test water pH and ammonia levels every 2 days",
+      "Remove uneaten feed from tanks within 15 minutes",
+      "Reduce fish density — overcrowding worsens outbreaks",
+      "Disinfect nets and tools before moving between ponds"
+    ],
+    "spread_risk": "high",
+    "spread_explanation": "Aeromoniasis spreads rapidly through contaminated water. Infected fish release bacteria that can infect an entire pond within days.",
+    "followup": [
+      "Re-scan affected fish after 48 hours of treatment",
+      "Check for new red spots or ulcers daily",
+      "Continue water quality monitoring for 2 weeks after recovery"
+    ],
+    "severity_actions": {
+      "mild": "Improve water quality and monitor closely for 2 days. No antibiotics yet.",
+      "moderate": "Start antibiotic feed. Apply a mild salt bath (1-2%) to isolated fish.",
+      "severe": "Remove and safely dispose of heavily infected fish to save the rest. Begin full antibiotic treatment."
+    }
+  },
+  "Gill disease": {
+    "explanation": "Bacterial or parasitic infection that damages the gill tissue. Fish gasp at the surface and show rapid breathing. Caused by poor water quality or pathogens.",
+    "immediate_action": [
+      "Turn on all aerators and increase oxygen immediately",
+      "Remove any uneaten feed and decaying matter from the pond",
+      "Do a 20-30% water change right now"
+    ],
+    "treatment": "Act fast to increase oxygen. Check water chemistry immediately.",
+    "medication": "If bacterial, use approved gill treatments. Avoid harsh chemicals that further damage gills.",
+    "medication_steps": [
+      "Apply Potassium Permanganate (KMnO4) at 2-4 mg/L — avoid overdose",
+      "For bacterial gill disease: treat with approved antibacterial pond treatment",
+      "Do not use multiple chemicals at once — choose one treatment"
+    ],
+    "water_management": "Turn on all aerators. Stop adding any fertilizers or manure. Flush pond with fresh water if possible.",
+    "feeding_advice": "Stop feeding entirely for 24-48 hours. Fish struggling to breathe will not eat.",
+    "farm_improvement": [
+      "Keep dissolved oxygen above 5 mg/L at all times",
+      "Never add fertilizer or manure during hot weather",
+      "Flush ponds with fresh water during high-stress periods",
+      "Monitor fish behaviour — gasping at surface is an early warning sign"
+    ],
+    "spread_risk": "medium",
+    "spread_explanation": "Gill disease is linked to water quality. Fish in the same pond share water and are all at risk, but it doesn't spread to other ponds unless water or equipment is shared.",
+    "followup": [
+      "Re-scan fish after 24-48 hours to check gill recovery",
+      "Monitor oxygen levels twice daily for 3 days",
+      "If symptoms worsen within 12 hours, increase water exchange to 50%"
+    ],
+    "severity_actions": {
+      "mild": "Turn on aerators and change 20% of the water.",
+      "moderate": "Apply Potassium Permanganate (KMnO4) to the pond carefully to reduce bacteria.",
+      "severe": "Emergency water exchange (50%). Add pure oxygen if available."
+    }
+  },
+  "Red disease": {
+    "explanation": "A severe hemorrhagic bacterial disease causing red discolouration, bleeding fins, and ulcers. High mortality if not caught early. Often triggered by stress or water quality crash.",
+    "immediate_action": [
+      "Place the entire pond in quarantine — no water flows in or out",
+      "Do not move any nets or equipment to healthy ponds",
+      "Remove dead or visibly dying fish immediately and dispose safely"
+    ],
+    "treatment": "Strict isolation. Do not move water or nets from this pond to healthy ponds.",
+    "medication": "Use agricultural lime (CaCO3) to treat the pond water. Antibiotic feed for surviving fish.",
+    "medication_steps": [
+      "Apply agricultural lime (CaCO3) at 100-200 kg/hectare to stabilize pH",
+      "Mix Vitamin C into feed to boost fish immunity",
+      "Give antibiotic feed (oxytetracycline) for 7-10 days to survivors"
+    ],
+    "water_management": "Apply quicklime to the pond to stabilize water pH and kill spores.",
+    "feeding_advice": "Feed lightly. Mix Vitamin C into feed to boost fish immunity.",
+    "farm_improvement": [
+      "Keep separate nets and tools for each pond — never share equipment",
+      "Do not add new fish without a 2-week quarantine period",
+      "Maintain water pH between 7-8 to prevent bacterial growth",
+      "Disinfect boats and gear with chlorine solution between ponds"
+    ],
+    "spread_risk": "high",
+    "spread_explanation": "Red disease is highly contagious through shared water and equipment. One infected pond can destroy neighboring ponds within a week if quarantine is not applied.",
+    "followup": [
+      "Re-scan surviving fish after 5 days of treatment",
+      "Keep pond isolated for at least 2 weeks after last death",
+      "Before restocking, drain and dry the pond for 7 days minimum"
+    ],
+    "severity_actions": {
+      "mild": "Apply lime to the pond and remove any fish showing early red spots.",
+      "moderate": "Start antibiotic feed. Harvest market-sized healthy fish quickly.",
+      "severe": "Emergency harvest of unaffected fish. Infected fish must be destroyed, and pond must be drained and dried."
+    }
+  },
+  "Fungal": {
+    "explanation": "Fungal infection (Saprolegniasis) appears as white or grey cotton-like patches on skin or fins. It usually attacks fish that are already stressed, injured, or have a weakened immune system.",
+    "immediate_action": [
+      "Remove infected fish to a clean quarantine tank",
+      "Give a 10-15 minute salt bath (2-3% non-iodized salt)",
+      "Remove any dead fish or decaying organic matter from the pond"
+    ],
+    "treatment": "Treat the affected fish directly and remove the underlying cause of stress (cold, injuries).",
+    "medication": "Give fish a salt bath (2-3% non-iodized salt for 10-15 minutes).",
+    "medication_steps": [
+      "Prepare a 2-3% salt bath (non-iodized) — dip fish for 10-15 minutes",
+      "Apply Malachite Green or Methylene Blue if salt bath is insufficient",
+      "Ensure water temperature is stable — cold water worsens fungal growth"
+    ],
+    "water_management": "Ensure water temperature is stable. Remove dead fish or decaying matter from the pond.",
+    "feeding_advice": "Feed normally, but ensure high-quality feed.",
+    "farm_improvement": [
+      "Handle fish gently — skin wounds are entry points for fungus",
+      "Remove dead fish within 30 minutes — rotting tissue spreads spores",
+      "Keep water temperature stable — avoid sudden drops",
+      "Avoid overcrowding — stressed fish are more vulnerable"
+    ],
+    "spread_risk": "low",
+    "spread_explanation": "Fungal infection rarely spreads directly between healthy fish. It mainly affects wounded or immunocompromised fish. Good hygiene significantly reduces risk.",
+    "followup": [
+      "Re-scan treated fish after 48 hours — patches should reduce in size",
+      "If new patches appear, repeat salt bath treatment",
+      "Inspect remaining pond fish for any wounds or abnormal patches"
+    ],
+    "severity_actions": {
+      "mild": "Give a quick salt bath to affected fish before returning to a clean tank.",
+      "moderate": "Treat the pond or quarantine tank with Malachite Green or Methylene Blue (if permitted).",
+      "severe": "Fungus in gills is usually fatal. Cull heavily infected fish."
+    }
+  },
+  "Parasitic": {
+    "explanation": "Parasites (worms, flukes, protozoans) attach to the skin, gills, or body cavity. Infected fish scratch against surfaces, produce excess mucus, and lose weight rapidly.",
+    "immediate_action": [
+      "Treat the entire pond — not just individual fish",
+      "Remove excessive aquatic weeds where parasites breed",
+      "Increase water flow if possible to flush out parasites"
+    ],
+    "treatment": "Treat the whole pond, as parasites multiply in the water.",
+    "medication": "Use anti-parasitic treatments like Formalin or specific chemicals based on the bug type (consult vet).",
+    "medication_steps": [
+      "Apply Formalin (25-50 mg/L) as a short-term pond bath",
+      "Repeat treatment after 5-7 days to kill newly hatched parasites",
+      "For heavy infestations, consult a vet for species-specific treatment"
+    ],
+    "water_management": "Increase water flow if possible. Remove excessive weeds where parasites breed.",
+    "feeding_advice": "Feed normally to keep fish strong.",
+    "farm_improvement": [
+      "Add pond salt at low levels (0.1-0.3%) as a routine preventive",
+      "Keep pond edges clear of vegetation — weeds harbor parasites",
+      "Quarantine all new fish for 2 weeks before adding to main pond",
+      "Dry empty ponds for 7-10 days after harvest to break the parasite cycle"
+    ],
+    "spread_risk": "high",
+    "spread_explanation": "Parasites spread through shared water, infected fish, and contaminated equipment. Once in a pond, they multiply exponentially if left untreated.",
+    "followup": [
+      "Re-scan after 7 days — re-treat if parasites are still visible",
+      "Check fish weight and appetite weekly for signs of recovery",
+      "After full recovery, dry the empty pond to prevent reinfection"
+    ],
+    "severity_actions": {
+      "mild": "Apply a low dose of pond salt to increase slime coat protection.",
+      "moderate": "Apply targeted anti-parasitic pond treatment. Repeat after 5 days to kill hatching eggs.",
+      "severe": "Drain and dry the pond after harvest to break the parasite life cycle completely."
+    }
+  },
+  "Viral": {
+    "explanation": "Viral diseases (e.g., White Tail Disease in shrimp/tilapia) have no cure. They cause mass mortality quickly. The goal is to stop the virus from spreading to other ponds.",
+    "immediate_action": [
+      "Close off all water outlets from the infected pond immediately",
+      "Do not transport or sell fish from this pond",
+      "Disinfect all equipment with 10% chlorine solution before moving it"
+    ],
+    "treatment": "No medicine cures viruses. Focus on stopping the spread.",
+    "medication": "None. Do not waste money on antibiotics for a viral infection.",
+    "medication_steps": [
+      "No antiviral medication exists — antibiotics will not help",
+      "Add Vitamin C and immune boosters to feed to help survivors fight it off",
+      "Use probiotics in water to support fish gut health"
+    ],
+    "water_management": "Stop all water flow out of the infected pond to prevent spreading to neighboring ponds.",
+    "feeding_advice": "Add Vitamin C and immune boosters to feed to help survivors fight it off.",
+    "farm_improvement": [
+      "Source fish seed only from certified, virus-free hatcheries",
+      "Never share water between ponds — each pond needs independent water supply",
+      "Dispose of dead fish by burying deep or incineration — never into rivers",
+      "Implement strict biosecurity — visitors and workers should wear clean boots"
+    ],
+    "spread_risk": "high",
+    "spread_explanation": "Viral infections spread very fast through water, shared equipment, birds, and even insects. Once a pond is infected, neighboring ponds are at serious risk.",
+    "followup": [
+      "After all fish deaths stop, drain and bleach the pond (2 kg chlorine per 1,000 L)",
+      "Dry the pond bed for at least 2 weeks before restocking",
+      "Test water before restocking — ensure zero viral load if possible"
+    ],
+    "severity_actions": {
+      "mild": "Isolate the pond. Disinfect all nets and gear used here.",
+      "moderate": "Cull any sick-looking fish immediately. Do not transport fish off the farm.",
+      "severe": "Complete quarantine. May require destroying the stock, draining, and heavy bleaching of the pond."
+    }
+  },
+  "Healthy": {
+    "explanation": "Your fish appear healthy with no visible signs of disease. Regular monitoring and good farm hygiene will keep them this way.",
+    "immediate_action": [
+      "Continue your current feeding and water management routine",
+      "Scan again in 7 days for routine health monitoring"
+    ],
+    "treatment": "Keep up the good work!",
+    "medication": "None required.",
+    "medication_steps": [],
+    "water_management": "Maintain regular water testing and routine partial water changes.",
+    "feeding_advice": "Continue feeding a balanced diet. Do not overfeed.",
+    "farm_improvement": [
+      "Test water parameters (pH, ammonia, oxygen) every 3-5 days",
+      "Do a 20-30% water change every week as routine maintenance",
+      "Keep a health logbook — record any unusual fish behaviour",
+      "Maintain a 2-week quarantine for any new fish before adding to pond"
+    ],
+    "spread_risk": "low",
+    "spread_explanation": "No disease detected. Continue normal biosecurity practices to keep your farm healthy.",
+    "followup": [
+      "Schedule a routine scan in 7 days",
+      "Continue monitoring fish appetite and surface behaviour daily"
+    ],
+    "severity_actions": {
+      "mild": "Monitor regularly.",
+      "moderate": "N/A",
+      "severe": "N/A"
+    }
+  }
+}

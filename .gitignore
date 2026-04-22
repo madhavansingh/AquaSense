@@ -1,0 +1,144 @@
+# ══════════════════════════════════════════════════════════════════
+# AquaGuard — Root .gitignore
+# Covers: Python backend, React/Vite frontend, AI/ML, OS, editors
+# ══════════════════════════════════════════════════════════════════
+
+# ─── SECRETS & ENVIRONMENT ────────────────────────────────────────
+.env
+.env.*
+!.env.example          # keep the example template
+
+# ─── PYTHON ───────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+*.pyd
+.Python
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+.env/
+.conda/
+*.egg-info/
+dist/
+build/
+*.egg
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Testing / coverage
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+nosetests.xml
+coverage.xml
+*.cover
+
+# MyPy / type checkers
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pyre/
+.pytype/
+
+# ─── AI / ML MODEL BINARIES ───────────────────────────────────────
+# Large trained model files — store via Git LFS or cloud bucket instead
+*.h5
+*.hdf5
+*.keras
+*.pt
+*.pth
+*.onnx
+*.pb
+*.tflite
+*.pkl
+*.pickle
+*.joblib
+*.model
+*.bin          # HuggingFace weights
+
+# Training artefacts
+runs/
+checkpoints/
+logs/
+wandb/
+mlruns/
+*.tfevents.*
+saved_model/
+
+# Dataset files (add to LFS if needed)
+*.csv
+*.tsv
+*.parquet
+*.feather
+*.npy
+*.npz
+*.h5ad
+
+# ─── NODE / FRONTEND ──────────────────────────────────────────────
+node_modules/
+.pnp
+.pnp.js
+.yarn/install-state.gz
+
+# Build output
+dist/
+dist-ssr/
+build/
+.vite/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+*.log
+
+# Vite / misc local config
+*.local
+.cache/
+
+# ─── OS & SYSTEM ──────────────────────────────────────────────────
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# ─── EDITORS & IDEs ───────────────────────────────────────────────
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+*.iml
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.swp
+*~
+.project
+.classpath
+
+# ─── DOCKER ───────────────────────────────────────────────────────
+*.env.docker
+docker-compose.override.yml
+
+# ─── MISC ─────────────────────────────────────────────────────────
+*.bak
+*.tmp
+*.orig
+*.rej
+tmp/
+temp/
