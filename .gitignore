@@ -135,6 +135,10 @@ Desktop.ini
 *.env.docker
 docker-compose.override.yml
 
+# ─── DATASET (images excluded — use data/README.md to download) ───
+# Raw dataset images — too large for Git (download from Kaggle)
+dataset/
+
 # ─── MISC ─────────────────────────────────────────────────────────
 *.bak
 *.tmp

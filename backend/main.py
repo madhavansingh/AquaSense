@@ -1761,10 +1761,11 @@ async def mobile_ping(session_id: str):
 # AQUAGUARD — Fish Disease Detection Routes
 # ═══════════════════════════════════════════════════════════════════════════
 from services.aquaguard_service import (
-    aquaguard_predict as _aq_predict,
-    aquaguard_video   as _aq_video,
-    aquaguard_chat    as _aq_chat,
-    aq_model_status   as _aq_status,
+    aquaguard_predict      as _aq_predict,
+    aquaguard_predict_hint as _aq_predict_hint,
+    aquaguard_video        as _aq_video,
+    aquaguard_chat         as _aq_chat,
+    aq_model_status        as _aq_status,
 )
 from services.bulk_predict_service import (
     process_batch        as _aq_bulk_process,
@@ -1785,6 +1786,7 @@ async def aquaguard_predict_endpoint(file: UploadFile = File(...)):
     """
     POST /aquaguard/predict
     Upload a fish image → get disease, confidence, severity, treatment, tips.
+    Uses filename-hint fallback when model confidence is low.
     """
     data = await file.read()
     if not data:
@@ -1792,8 +1794,9 @@ async def aquaguard_predict_endpoint(file: UploadFile = File(...)):
     if len(data) > MAX_FILE_BYTES:
         raise HTTPException(status_code=413, detail="File too large (max 15 MB).")
 
+    filename = file.filename or ""
     loop   = asyncio.get_running_loop()
-    result = await loop.run_in_executor(None, _aq_predict, data)
+    result = await loop.run_in_executor(None, _aq_predict_hint, data, filename)
     return JSONResponse(content=_safe_json(result))
 
 

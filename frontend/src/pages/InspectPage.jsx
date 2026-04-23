@@ -556,14 +556,26 @@ const InspectPage = () => {
         return;
       }
       const r = {
-        disease:    data.disease,
-        confidence: data.confidence,
-        severity:   data.severity,
-        treatment:  data.treatment,
-        tips:       data.tips,
-        scanId:     genId(),
-        timestamp:  nowTime(),
-        source:     'upload',
+        disease:            data.disease,
+        confidence:         data.confidence,
+        severity:           data.severity,
+        treatment:          data.treatment,
+        tips:               data.tips,
+        medication:         data.medication,
+        explanation:        data.explanation,
+        uncertain:          data.uncertain         || false,
+        top_predictions:    data.top_predictions   || [],
+        immediate_action:   data.immediate_action  || [],
+        medication_steps:   data.medication_steps  || [],
+        farm_improvement:   data.farm_improvement  || [],
+        followup:           data.followup          || [],
+        spread_risk:        data.spread_risk       || 'medium',
+        spread_explanation: data.spread_explanation || '',
+        water_management:   data.water_management,
+        feeding_advice:     data.feeding_advice,
+        scanId:             genId(),
+        timestamp:          nowTime(),
+        source:             'upload',
       };
       setResult(r);
       setHistory(p => [r, ...p].slice(0, 10));
@@ -807,7 +819,15 @@ const InspectPage = () => {
 
               {uploadFile && (
                 <div className="ip-upload-meta text-mono">
-                  <span>{uploadFile.name}</span>
+                  <span
+                    style={result ? {
+                      color: '#1d4ed8',
+                      fontWeight: 700,
+                      letterSpacing: '0.02em',
+                    } : {}}
+                  >
+                    {result ? `🐟 ${result.disease}` : 'Ready to scan'}
+                  </span>
                   <span>{(uploadFile.size / 1024).toFixed(0)} KB</span>
                 </div>
               )}

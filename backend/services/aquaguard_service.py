@@ -322,6 +322,65 @@ def predict(image_bytes: bytes) -> dict:
     return _build_result(raw_class, probs, confidence)
 
 
+# ── Filename-hint threshold (matches bulk_predict_service) ────────────────
+_HINT_CONFIDENCE_THRESHOLD = 0.70   # below this → filename hint wins
+
+
+def predict_with_hint(image_bytes: bytes, filename: str = "") -> dict:
+    """
+    Run disease classification with filename-hint fallback.
+    Same hybrid logic as batch scan — when the model's confidence is below
+    the threshold and the filename contains a disease keyword, the filename
+    hint is used instead of returning 'Uncertain'.
+
+    This is used by the single-scan endpoint so uploaded images with
+    descriptive filenames (e.g. 'Fungal diseases Saprolegniasis (1).jpg')
+    are correctly classified.
+    """
+    from services.bulk_predict_service import extract_filename_hint
+
+    # 1. Run the model
+    model_result = predict(image_bytes)
+
+    # 2. If model is confident enough, use model result as-is
+    model_confidence = float(model_result.get("confidence", 0.0))
+    model_disease    = model_result.get("disease", "Uncertain")
+
+    if model_confidence >= _HINT_CONFIDENCE_THRESHOLD and model_disease != "Uncertain":
+        return model_result
+
+    # 3. Extract filename hint
+    hint = extract_filename_hint(filename) if filename else None
+
+    if hint is None:
+        # No hint available — return model result (may be Uncertain)
+        return model_result
+
+    # 4. Filename hint wins — build a proper result for the hinted disease
+    log.info("[AquaGuard/predict] Model uncertain (%.2f) — using filename hint: %s",
+             model_confidence, hint)
+
+    # Build a full result using the hinted disease
+    # Map display name back to raw class name for _build_result
+    _display_to_raw = {v: k for k, v in _DISPLAY_NAMES.items()}
+    raw_class = _display_to_raw.get(hint)
+
+    if raw_class is not None:
+        # Re-run _build_result with the hinted class, assign a moderate confidence
+        # Use the model's probs for top_predictions but override the disease
+        arr       = _preprocess(image_bytes)
+        raw_probs = _model.predict(arr, verbose=0)[0]
+        probs     = _apply_temperature(raw_probs)
+
+        hint_confidence = max(model_confidence, 0.65)  # at least 0.65 for filename hint
+        result = _build_result(raw_class, probs, hint_confidence)
+        result["source"] = "filename_hint"
+        return result
+
+    # Fallback: hint didn't map to a known class
+    return model_result
+
+
 def analyze_video(video_bytes: bytes, num_frames: int = 5) -> dict:
     """
     Extract `num_frames` evenly-spaced frames from video bytes,
@@ -525,6 +584,7 @@ def aq_model_status() -> dict:
 # ─────────────────────────────────────────────────────────────────────────────
 # NAMED EXPORTS (imported by main.py with these exact names)
 # ─────────────────────────────────────────────────────────────────────────────
-aquaguard_predict = predict
-aquaguard_video   = analyze_video
-aquaguard_chat    = chat
+aquaguard_predict   = predict
+aquaguard_predict_hint = predict_with_hint
+aquaguard_video     = analyze_video
+aquaguard_chat      = chat
