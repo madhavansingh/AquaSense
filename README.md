@@ -2,7 +2,7 @@
 
 <img src="https://img.shields.io/badge/AquaSense-AI%20Fish%20Health%20Platform-00b4d8?style=for-the-badge&logo=fish&logoColor=white" alt="AquaSense"/>
 
-# 🐟 AquaSense — AI-Powered Fish Disease Detection Platform
+# AquaSense - AI-Powered Fish Disease Detection Platform
 
 **Production-grade aquaculture intelligence platform combining custom CNN inference, Gemini Vision AI, and farm-level analytics to detect fish diseases in real time.**
 
@@ -57,15 +57,15 @@ The system is built to operate in low-bandwidth environments with an offline-fir
 
 | Feature | Description |
 |---|---|
-| 🔬 **Hybrid AI Detection** | Local CNN (MobileNetV2) for speed + Gemini Vision for accuracy, auto-selected by confidence threshold |
-| 📸 **Mobile Scan via QR** | Farmers scan a QR code to open a mobile camera interface — no app install needed |
-| 🧪 **Batch Processing** | Upload entire folders of fish images; results aggregated with per-disease breakdown |
-| 📊 **Farm Intelligence** | Session-based health trend engine: disease frequency, recurrence patterns, risk scoring |
-| 💊 **Treatment Engine** | Rule-based + AI-generated treatment plans mapped to detected diseases and severity |
-| 🚨 **Alert System** | Sliding-window detection fires email alerts (+ PDF report) when critical patterns emerge |
-| 🤖 **Domain Chat AI** | Gemini-powered assistant grounded in the AquaSense knowledge base |
-| 🔐 **Google OAuth** | Secure Google Sign-In with JWT session management |
-| 🎙️ **Voice TTS** | ElevenLabs integration for voice read-back of scan results |
+| **Hybrid AI Detection** | Local CNN (MobileNetV2) for speed + Gemini Vision for accuracy, auto-selected by confidence threshold |
+| **Mobile Scan via QR** | Farmers scan a QR code to open a mobile camera interface, no app install needed |
+| **Batch Processing** | Upload entire folders of fish images; results aggregated with per-disease breakdown |
+| **Farm Intelligence** | Session-based health trend engine: disease frequency, recurrence patterns, risk scoring |
+| **Treatment Engine** | Rule-based + AI-generated treatment plans mapped to detected diseases and severity |
+| **Alert System** | Sliding-window detection fires email alerts (+ PDF report) when critical patterns emerge |
+| **Domain Chat AI** | Gemini-powered assistant grounded in the AquaSense knowledge base |
+| **Google OAuth** | Secure Google Sign-In with JWT session management |
+| **Voice TTS** | ElevenLabs integration for voice read-back of scan results |
 
 ---
 
@@ -109,14 +109,14 @@ The system is built to operate in low-bandwidth environments with an offline-fir
 ┌──────▼──────────────────────────────────────────────────────────┐
 │                    SERVICE LAYER                                 │
 │                                                                 │
-│  aquasense_service.py  — main detection orchestrator            │
-│  domain_classifier.py  — filename-based hybrid routing          │
-│  farm_intelligence.py  — session analytics engine               │
-│  treatment_service.py  — treatment plan generator               │
-│  alert_service.py      — email + PDF alert system               │
-│  bulk_predict_service.py — async batch processing               │
-│  decision_engine.py    — severity + recommendation logic        │
-│  gemini_vision_service.py — Gemini API wrapper                  │
+│  aquasense_service.py     main detection orchestrator           │
+│  domain_classifier.py     filename-based hybrid routing         │
+│  farm_intelligence.py     session analytics engine              │
+│  treatment_service.py     treatment plan generator              │
+│  alert_service.py         email + PDF alert system              │
+│  bulk_predict_service.py  async batch processing                │
+│  decision_engine.py       severity + recommendation logic       │
+│  gemini_vision_service.py Gemini API wrapper                    │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
@@ -124,16 +124,16 @@ The system is built to operate in low-bandwidth environments with an offline-fir
 
 ## AI Pipeline
 
-### Stage 1 — Domain Classification (filename-based)
+### Stage 1: Domain Classification (filename-based)
 `services/domain_classifier.py` inspects the uploaded filename for known disease keywords. This zero-latency heuristic boosts accuracy when filenames carry semantic meaning (e.g., from batch exports).
 
-### Stage 2 — Local CNN Inference
+### Stage 2: Local CNN Inference
 `ai/predict.py` loads the custom MobileNetV2 model (`ai/models/aquasense_model.keras`) and runs inference in < 200 ms on CPU. Returns class label + softmax confidence.
 
-### Stage 3 — Gemini Vision Fallback
+### Stage 3: Gemini Vision Fallback
 If local CNN confidence < threshold **or** the domain classifier signals ambiguity, `services/gemini_vision_service.py` sends the image to Gemini Vision via the pooled key manager. The structured response is merged with the local result.
 
-### Stage 4 — Severity & Treatment
+### Stage 4: Severity and Treatment
 `services/decision_engine.py` maps `(class, confidence)` → severity level using the rules in `ai/severity-logic.md`. `services/treatment_service.py` looks up `ai/treatment-mapping.json` and optionally calls Gemini for a personalised protocol.
 
 ```
@@ -193,7 +193,7 @@ aquasense/
 │   │   └── decision_engine.py
 │   ├── utils/
 │   │   └── image_quality.py
-│   ├── main.py                     # FastAPI app — all routes
+│   ├── main.py                     # FastAPI app, all routes
 │   ├── requirements.txt
 │   └── .env.example
 │
@@ -332,19 +332,19 @@ cp .env.example .env
 
 ### 5. Run
 
-**Terminal 1 — Backend:**
+**Terminal 1 - Backend:**
 ```bash
 cd backend && source venv/bin/activate
 uvicorn main:app --reload --port 8000
 ```
 
-**Terminal 2 — Frontend:**
+**Terminal 2 - Frontend:**
 ```bash
 cd frontend && npm run dev
 ```
 
-- App → **http://localhost:5173**  
-- Swagger UI → **http://localhost:8000/docs**
+- App: **http://localhost:5173**
+- Swagger UI: **http://localhost:8000/docs**
 
 ---
 
@@ -353,7 +353,7 @@ cd frontend && npm run dev
 ### Backend (`backend/.env`)
 
 ```env
-# Gemini API Key Pool — up to 10 keys, auto-rotated on quota exhaustion
+# Gemini API Key Pool - up to 10 keys, auto-rotated on quota exhaustion
 # Get free keys: https://aistudio.google.com/apikey
 GEMINI_API_KEY_1=your_first_key
 GEMINI_API_KEY_2=your_second_key
@@ -384,7 +384,7 @@ VITE_API_URL=http://localhost:8000
 VITE_GOOGLE_CLIENT_ID=your_client_id.apps.googleusercontent.com
 ```
 
-> ⚠️ Never commit `.env` files. Only `.env.example` files belong in version control.
+> Never commit `.env` files. Only `.env.example` files belong in version control.
 
 ---
 
@@ -454,7 +454,7 @@ The model classifies into **7 categories** from the Freshwater Fish Disease Aqua
 | Fungal diseases - Saprolegniasis | Fungal | MODERATE | Cotton-like white tufts |
 | Parasitic diseases | Parasitic | MODERATE → HIGH | Scratching, white dots, flashing |
 | Viral diseases - White tail disease | Viral | EXTREME | Tail whitening, erratic swimming |
-| Healthy Fish | — | NONE | Normal coloration, active swimming |
+| Healthy Fish | N/A | NONE | Normal coloration, active swimming |
 
 ---
 
@@ -493,11 +493,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
 ## License
 
-MIT License — see [LICENSE](LICENSE).
+MIT License. See [LICENSE](LICENSE).
 
 ---
 
-<div align="center">
-  Made with ❤️ for South Asian aquaculture farmers<br/>
-  <sub>Built with FastAPI · React · TensorFlow · Google Gemini</sub>
-</div>
