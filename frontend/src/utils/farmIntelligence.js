@@ -1,5 +1,5 @@
 /**
- * AquaGuard — Farm Intelligence Engine (Client-Side)
+ * AquaSense — Farm Intelligence Engine (Client-Side)
  * ====================================================
  * Pure JS mirror of backend/services/farm_intelligence.py
  * Runs client-side for instant updates after every scan — no round-trip needed.

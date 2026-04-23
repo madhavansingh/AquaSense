@@ -1,4 +1,4 @@
-# AquaGuard ML Module
+# AquaSense ML Module
 
 ## Setup & Training
 
@@ -11,7 +11,7 @@ python train_model.py
 ```
 
 After training completes, you will find:
-- `models/aquaguard_model.h5`     — The saved Keras model
+- `models/aquasense_model.h5`     — The saved Keras model
 - `models/class_labels.json`      — Maps class index to disease name
 - `models/training_history.json`  — Loss/accuracy per epoch
 

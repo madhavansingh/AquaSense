@@ -103,14 +103,14 @@ const LoginPage = () => {
         <div className="login-logo">
           <div className="login-logo-icon"><Cpu size={22} /></div>
           <div>
-            <p className="login-logo-name">AquaGuard<span>AI</span></p>
+            <p className="login-logo-name">AquaSense<span>AI</span></p>
             <p className="login-logo-sub">Inspector Platform</p>
           </div>
         </div>
 
         <div className="login-divider" />
 
-        <h1 className="login-title">Login to AquaGuard</h1>
+        <h1 className="login-title">Login to AquaSense</h1>
         <p className="login-desc">Sign in with your Google account to access the inspection dashboard.</p>
 
         {/* Google button rendered by GIS SDK */}

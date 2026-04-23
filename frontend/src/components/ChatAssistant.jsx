@@ -18,7 +18,7 @@ const STARTERS = [
 const ChatAssistant = () => {
   const [open, setOpen]       = useState(false);
   const [messages, setMessages] = useState([
-    { role: 'bot', text: 'Hi! I\'m AquaGuard AI 🐟 — your fish health assistant. Ask me about fish diseases, treatments, or your farm health data.' }
+    { role: 'bot', text: 'Hi! I\'m AquaSense AI 🐟 — your fish health assistant. Ask me about fish diseases, treatments, or your farm health data.' }
   ]);
   const [input,        setInput]        = useState('');
   const [loading,      setLoading]      = useState(false);
@@ -50,7 +50,7 @@ const ChatAssistant = () => {
     setLoading(true);
 
     try {
-      const res  = await fetch(`${API_BASE}/aquaguard/chat`, {
+      const res  = await fetch(`${API_BASE}/aquasense/chat`, {
         method:  'POST',
         headers: { 'Content-Type': 'application/json' },
         body:    JSON.stringify({ question: q }),
@@ -144,7 +144,7 @@ const ChatAssistant = () => {
                   <Bot size={15} />
                 </div>
                 <div>
-                  <div className="chat-header-name">AquaGuard AI</div>
+                  <div className="chat-header-name">AquaSense AI</div>
                   <div className="chat-header-status">
                     <span className="chat-status-dot" /> Fish Health Assistant
                   </div>

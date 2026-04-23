@@ -57,7 +57,7 @@ const Layout = () => {
             <Fish size={18} />
           </div>
           <div className="sidebar-brand">
-            <h2>AquaGuard</h2>
+            <h2>AquaSense</h2>
             <span>AI Fish Health</span>
           </div>
         </div>

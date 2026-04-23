@@ -1,5 +1,5 @@
 """
-AquaGuard — Fish Disease Detection Service
+AquaSense — Fish Disease Detection Service
 Loads the trained MobileNetV2 model once at startup and exposes
 predict(), analyze_video(), and chat() for the FastAPI routes.
 
@@ -20,15 +20,15 @@ from typing import Optional
 import numpy as np
 from PIL import Image
 
-log = logging.getLogger("aquaguard")
+log = logging.getLogger("aquasense")
 
 # ─────────────────────────────────────────────────────────────────────────────
 # PATHS  (backend/ → fish/ → ai/)
 # ─────────────────────────────────────────────────────────────────────────────
 _BACKEND_DIR   = Path(__file__).resolve().parent.parent        # backend/
 _AI_DIR        = _BACKEND_DIR.parent / "ai"                    # fish/ai/
-_MODEL_PATH    = _AI_DIR / "models" / "aquaguard_model.keras"   # v3 primary
-_MODEL_PATH_H5 = _AI_DIR / "models" / "aquaguard_model.h5"      # v2 fallback
+_MODEL_PATH    = _AI_DIR / "models" / "aquasense_model.keras"   # v3 primary
+_MODEL_PATH_H5 = _AI_DIR / "models" / "aquasense_model.h5"      # v2 fallback
 _LABELS_PATH   = _AI_DIR / "models" / "class_labels.json"
 _TREATMENT_PATH = _AI_DIR / "treatment-mapping.json"
 _KB_PATH       = _AI_DIR / "knowledge-base.md"
@@ -99,26 +99,26 @@ def load_all() -> bool:
             _temperature      = float(cfg.get("temperature",         _DEFAULT_TEMPERATURE))
             _thresh_uncertain = float(cfg.get("threshold_uncertain", _DEFAULT_THRESH_UNC))
             _thresh_moderate  = float(cfg.get("threshold_moderate",  _DEFAULT_THRESH_MOD))
-            log.info("[AquaGuard] Config loaded: T=%.1f unc=%.2f mod=%.2f",
+            log.info("[AquaSense] Config loaded: T=%.1f unc=%.2f mod=%.2f",
                      _temperature, _thresh_uncertain, _thresh_moderate)
         except Exception as e:
-            log.warning("[AquaGuard] Could not read model_config.json: %s", e)
+            log.warning("[AquaSense] Could not read model_config.json: %s", e)
 
     # ── 1. Treatment mapping ──────────────────────────────────────────
     if _treatments is None:
         if _TREATMENT_PATH.exists():
             with open(_TREATMENT_PATH, encoding="utf-8") as f:
                 _treatments = json.load(f)
-            log.info("[AquaGuard] Treatment mapping loaded.")
+            log.info("[AquaSense] Treatment mapping loaded.")
         else:
-            log.warning("[AquaGuard] treatment-mapping.json not found at %s", _TREATMENT_PATH)
+            log.warning("[AquaSense] treatment-mapping.json not found at %s", _TREATMENT_PATH)
             _treatments = {}
 
     # ── 2. Knowledge base text ────────────────────────────────────────
     if _kb_text is None:
         if _KB_PATH.exists():
             _kb_text = _KB_PATH.read_text(encoding="utf-8")
-            log.info("[AquaGuard] Knowledge base loaded.")
+            log.info("[AquaSense] Knowledge base loaded.")
         else:
             _kb_text = "No knowledge base available."
 
@@ -127,9 +127,9 @@ def load_all() -> bool:
         if _LABELS_PATH.exists():
             with open(_LABELS_PATH, encoding="utf-8") as f:
                 _class_labels = json.load(f)   # {str(idx): "folder name"}
-            log.info("[AquaGuard] Class labels loaded: %s", list(_class_labels.values()))
+            log.info("[AquaSense] Class labels loaded: %s", list(_class_labels.values()))
         else:
-            log.warning("[AquaGuard] class_labels.json not found — model will be skipped.")
+            log.warning("[AquaSense] class_labels.json not found — model will be skipped.")
             return False
 
     # ── 4. Keras model ───────────────────────────────────────────────
@@ -137,19 +137,19 @@ def load_all() -> bool:
         # Prefer .keras (v3 EfficientNetB0), fall back to .h5 (v2 MobileNetV2)
         model_file = _MODEL_PATH if _MODEL_PATH.exists() else _MODEL_PATH_H5
         if not model_file.exists():
-            log.warning("[AquaGuard] Model file not found. Run ai/train_model.py first.")
+            log.warning("[AquaSense] Model file not found. Run ai/train_model.py first.")
             return False
         try:
             import tensorflow as tf
             arch = "EfficientNetB0" if ".keras" in str(model_file) else "MobileNetV2"
-            log.info("[AquaGuard] Loading %s model from %s …", arch, model_file.name)
+            log.info("[AquaSense] Loading %s model from %s …", arch, model_file.name)
             _model = tf.keras.models.load_model(str(model_file))
             # Warm-up pass so the first real request isn't slow
             dummy = np.zeros((1, 224, 224, 3), dtype=np.float32)
             _model.predict(dummy, verbose=0)
-            log.info("[AquaGuard] Model ready.")
+            log.info("[AquaSense] Model ready.")
         except Exception as exc:
-            log.error("[AquaGuard] Failed to load model: %s", exc)
+            log.error("[AquaSense] Failed to load model: %s", exc)
             return False
 
     _model_ready = True
@@ -204,7 +204,7 @@ def _severity(confidence: float, disease: str) -> str:
 
 
 def _build_result(raw_class: str, probs: np.ndarray, confidence: float) -> dict:
-    """Build the full AquaGuard response dict for a confident prediction."""
+    """Build the full AquaSense response dict for a confident prediction."""
     display  = _DISPLAY_NAMES.get(raw_class, raw_class)
     severity = _severity(confidence, display)
     t_key    = _TREATMENT_KEYS.get(display, display)
@@ -293,7 +293,7 @@ def _build_uncertain(probs: np.ndarray, confidence: float) -> dict:
 def predict(image_bytes: bytes) -> dict:
     """
     Run disease classification on a single image (bytes).
-    Returns a dict matching the POST /aquaguard/predict response schema.
+    Returns a dict matching the POST /aquasense/predict response schema.
     """
     if not _model_ready or _model is None:
         return {
@@ -357,7 +357,7 @@ def predict_with_hint(image_bytes: bytes, filename: str = "") -> dict:
         return model_result
 
     # 4. Filename hint wins — build a proper result for the hinted disease
-    log.info("[AquaGuard/predict] Model uncertain (%.2f) — using filename hint: %s",
+    log.info("[AquaSense/predict] Model uncertain (%.2f) — using filename hint: %s",
              model_confidence, hint)
 
     # Build a full result using the hinted disease
@@ -493,7 +493,7 @@ def chat(question: str, last_result: Optional[dict] = None) -> str:
         "treatment plan", "what to do", "help me", "next steps", "how to treat",
     ])
 
-    system_prompt = f"""You are AquaGuard AI, a concise fish-health assistant for fish farmers.
+    system_prompt = f"""You are AquaSense AI, a concise fish-health assistant for fish farmers.
 
 IMPORTANT RULES:
 - Always be SHORT, DIRECT, and PRACTICAL — bullet points preferred
@@ -535,7 +535,7 @@ Farmer's question: {question}"""
             ck.mark_ok()
             return resp.text.strip()
     except Exception as exc:
-        log.warning("[AquaGuard/chat] Gemini unavailable: %s", exc)
+        log.warning("[AquaSense/chat] Gemini unavailable: %s", exc)
 
     # ── Local rule-based fallback ────────────────────────────────────
     for disease, t_key in _TREATMENT_KEYS.items():
@@ -551,11 +551,11 @@ Farmer's question: {question}"""
     # Generic fallback
     if any(w in question_lower for w in ["symptom", "sign", "look", "see"]):
         return ("Look for visible changes like red spots, white patches, swollen belly, "
-                "or fish gasping at the surface. Scan a photo with AquaGuard for a diagnosis.")
+                "or fish gasping at the surface. Scan a photo with AquaSense for a diagnosis.")
 
     if any(w in question_lower for w in ["treat", "cure", "medicine", "drug"]):
         return ("Treatment depends on the disease. Scan your fish first to identify the problem, "
-                "then AquaGuard will give you a specific treatment plan.")
+                "then AquaSense will give you a specific treatment plan.")
 
     if any(w in question_lower for w in ["water", "quality", "oxygen", "ammonia"]):
         return ("Maintain dissolved oxygen above 5 mg/L, keep ammonia below 0.1 mg/L, "
@@ -570,7 +570,7 @@ Farmer's question: {question}"""
 # ─────────────────────────────────────────────────────────────────────────────
 
 def aq_model_status() -> dict:
-    """Returns a health-check dict for the AquaGuard ML model."""
+    """Returns a health-check dict for the AquaSense ML model."""
     return {
         "model_ready"   : _model_ready,
         "model_path"    : str(_MODEL_PATH),
@@ -584,7 +584,7 @@ def aq_model_status() -> dict:
 # ─────────────────────────────────────────────────────────────────────────────
 # NAMED EXPORTS (imported by main.py with these exact names)
 # ─────────────────────────────────────────────────────────────────────────────
-aquaguard_predict   = predict
-aquaguard_predict_hint = predict_with_hint
-aquaguard_video     = analyze_video
-aquaguard_chat      = chat
+aquasense_predict   = predict
+aquasense_predict_hint = predict_with_hint
+aquasense_video     = analyze_video
+aquasense_chat      = chat

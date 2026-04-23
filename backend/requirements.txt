@@ -15,7 +15,7 @@ opencv-python-headless
 torch
 torchvision
 
-# ── AquaGuard — Fish Disease Detection ──────────────────────────────
+# ── AquaSense — Fish Disease Detection ──────────────────────────────
 tensorflow>=2.12.0           # Keras model inference (MobileNetV2)
 
 # ── Gemini / Google AI ──────────────────────────────────────────────

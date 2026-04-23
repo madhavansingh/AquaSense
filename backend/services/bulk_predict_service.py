@@ -1,12 +1,12 @@
 """
-AquaGuard — Bulk Prediction Service
+AquaSense — Bulk Prediction Service
 =====================================
 Handles batch fish image classification with:
   - Filename-based disease hint extraction
   - Hybrid decision (hint vs model confidence)
   - Structured per-image result + batch summary
 
-All model access is delegated to aquaguard_service to avoid
+All model access is delegated to aquasense_service to avoid
 reloading the Keras model — it must already be loaded at startup.
 """
 
@@ -20,7 +20,7 @@ from typing import Optional
 
 import numpy as np
 
-log = logging.getLogger("aquaguard.bulk")
+log = logging.getLogger("aquasense.bulk")
 
 # ─────────────────────────────────────────────────────────────────────────────
 # CONSTANTS
@@ -43,7 +43,7 @@ _KEYWORD_MAP: list[tuple[str, str]] = [
     (r"healthy",                            "Healthy Fish"),
 ]
 
-# Canonical folder name → clean display name (mirrors aquaguard_service.py)
+# Canonical folder name → clean display name (mirrors aquasense_service.py)
 _DISPLAY_NAMES: dict[str, str] = {
     "Bacterial diseases - Aeromoniasis" : "Aeromoniasis",
     "Bacterial gill disease"            : "Gill Disease",
@@ -169,8 +169,8 @@ def _classify_single(
     Run model inference on one image and apply hybrid decision.
     Returns the structured per-image result dict.
     """
-    # Import here to avoid circular import — aquaguard_service is loaded at startup
-    from services.aquaguard_service import predict as aq_predict
+    # Import here to avoid circular import — aquasense_service is loaded at startup
+    from services.aquasense_service import predict as aq_predict
 
     raw_result = aq_predict(image_bytes)
 

@@ -76,7 +76,7 @@ const SettingsPage = () => {
       >
         <div>
           <h1 className="sett-page-title">Settings</h1>
-          <p className="sett-page-sub">Configure your AquaGuard farm environment</p>
+          <p className="sett-page-sub">Configure your AquaSense farm environment</p>
         </div>
         <button className="sett-reset-btn" onClick={reset} title="Reset all to defaults">
           <RotateCcw size={14}/> Reset to defaults

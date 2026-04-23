@@ -1,8 +1,8 @@
 <div align="center">
 
-<img src="https://img.shields.io/badge/AquaGuard-AI%20Fish%20Health%20Platform-00b4d8?style=for-the-badge&logo=fish&logoColor=white" alt="AquaGuard"/>
+<img src="https://img.shields.io/badge/AquaSense-AI%20Fish%20Health%20Platform-00b4d8?style=for-the-badge&logo=fish&logoColor=white" alt="AquaSense"/>
 
-# 🐟 AquaGuard — AI-Powered Fish Disease Detection Platform
+# 🐟 AquaSense — AI-Powered Fish Disease Detection Platform
 
 **Production-grade aquaculture intelligence platform combining custom CNN inference, Gemini Vision AI, and farm-level analytics to detect fish diseases in real time.**
 
@@ -41,7 +41,7 @@
 
 ## Overview
 
-AquaGuard is a full-stack AI platform for South Asian freshwater aquaculture farmers and fish health veterinarians. It accepts fish images from any device (desktop upload or mobile camera via QR), runs a **two-stage hybrid classification pipeline** (local CNN → Gemini Vision fallback), and returns:
+AquaSense is a full-stack AI platform for South Asian freshwater aquaculture farmers and fish health veterinarians. It accepts fish images from any device (desktop upload or mobile camera via QR), runs a **two-stage hybrid classification pipeline** (local CNN → Gemini Vision fallback), and returns:
 
 - Disease classification with confidence score
 - Severity level (Critical / High / Moderate / Low)
@@ -63,7 +63,7 @@ The system is built to operate in low-bandwidth environments with an offline-fir
 | 📊 **Farm Intelligence** | Session-based health trend engine: disease frequency, recurrence patterns, risk scoring |
 | 💊 **Treatment Engine** | Rule-based + AI-generated treatment plans mapped to detected diseases and severity |
 | 🚨 **Alert System** | Sliding-window detection fires email alerts (+ PDF report) when critical patterns emerge |
-| 🤖 **Domain Chat AI** | Gemini-powered assistant grounded in the AquaGuard knowledge base |
+| 🤖 **Domain Chat AI** | Gemini-powered assistant grounded in the AquaSense knowledge base |
 | 🔐 **Google OAuth** | Secure Google Sign-In with JWT session management |
 | 🎙️ **Voice TTS** | ElevenLabs integration for voice read-back of scan results |
 
@@ -89,10 +89,10 @@ The system is built to operate in low-bandwidth environments with an offline-fir
 │                        backend/main.py                          │
 │                                                                 │
 │  /auth/*              Google OAuth + JWT verification           │
-│  /aquaguard/predict   Single image detection                    │
-│  /aquaguard/batch     Batch image processing                    │
-│  /aquaguard/chat      Gemini RAG chatbot                        │
-│  /aquaguard/treatment-plan  Treatment decision engine           │
+│  /aquasense/predict   Single image detection                    │
+│  /aquasense/batch     Batch image processing                    │
+│  /aquasense/chat      Gemini RAG chatbot                        │
+│  /aquasense/treatment-plan  Treatment decision engine           │
 │  /alerts/*            Sliding-window alert system               │
 └──────┬──────────────────┬──────────────────────────────────────┘
        │                  │
@@ -109,7 +109,7 @@ The system is built to operate in low-bandwidth environments with an offline-fir
 ┌──────▼──────────────────────────────────────────────────────────┐
 │                    SERVICE LAYER                                 │
 │                                                                 │
-│  aquaguard_service.py  — main detection orchestrator            │
+│  aquasense_service.py  — main detection orchestrator            │
 │  domain_classifier.py  — filename-based hybrid routing          │
 │  farm_intelligence.py  — session analytics engine               │
 │  treatment_service.py  — treatment plan generator               │
@@ -128,7 +128,7 @@ The system is built to operate in low-bandwidth environments with an offline-fir
 `services/domain_classifier.py` inspects the uploaded filename for known disease keywords. This zero-latency heuristic boosts accuracy when filenames carry semantic meaning (e.g., from batch exports).
 
 ### Stage 2 — Local CNN Inference
-`ai/predict.py` loads the custom MobileNetV2 model (`ai/models/aquaguard_model.keras`) and runs inference in < 200 ms on CPU. Returns class label + softmax confidence.
+`ai/predict.py` loads the custom MobileNetV2 model (`ai/models/aquasense_model.keras`) and runs inference in < 200 ms on CPU. Returns class label + softmax confidence.
 
 ### Stage 3 — Gemini Vision Fallback
 If local CNN confidence < threshold **or** the domain classifier signals ambiguity, `services/gemini_vision_service.py` sends the image to Gemini Vision via the pooled key manager. The structured response is merged with the local result.
@@ -158,7 +158,7 @@ Domain Classifier (filename heuristic)
 ## Project Structure
 
 ```
-aquaguard/
+aquasense/
 ├── .github/
 │   ├── ISSUE_TEMPLATE/
 │   │   ├── bug_report.md
@@ -168,7 +168,7 @@ aquaguard/
 │
 ├── ai/                             # AI / ML module
 │   ├── models/                     # Trained model artifacts (git-ignored)
-│   │   ├── aquaguard_model.keras   #   MobileNetV2 weights (~20 MB)
+│   │   ├── aquasense_model.keras   #   MobileNetV2 weights (~20 MB)
 │   │   ├── class_labels.json
 │   │   ├── model_config.json
 │   │   ├── training_history.json
@@ -182,7 +182,7 @@ aquaguard/
 │
 ├── backend/                        # FastAPI server
 │   ├── services/
-│   │   ├── aquaguard_service.py    # Detection orchestrator
+│   │   ├── aquasense_service.py    # Detection orchestrator
 │   │   ├── domain_classifier.py
 │   │   ├── gemini_vision_service.py
 │   │   ├── gemini_key_pool.py      # Multi-key round-robin pool
@@ -307,7 +307,7 @@ The trained model weights are excluded from Git (too large). Download them from 
 
 ```
 ai/models/
-├── aquaguard_model.keras   ← download this
+├── aquasense_model.keras   ← download this
 ├── class_labels.json       ← included in repo
 └── model_config.json       ← included in repo
 ```
@@ -403,16 +403,16 @@ All endpoints are documented interactively at `http://localhost:8000/docs`.
 
 | Method | Endpoint | Description |
 |---|---|---|
-| `POST` | `/aquaguard/predict` | Single image disease detection |
-| `POST` | `/aquaguard/batch` | Batch image processing |
-| `POST` | `/aquaguard/chat` | AI chat with aquaculture context |
-| `POST` | `/aquaguard/treatment-plan` | Generate treatment plan |
-| `GET` | `/aquaguard/farm-intelligence` | Session-based farm health analytics |
+| `POST` | `/aquasense/predict` | Single image disease detection |
+| `POST` | `/aquasense/batch` | Batch image processing |
+| `POST` | `/aquasense/chat` | AI chat with aquaculture context |
+| `POST` | `/aquasense/treatment-plan` | Generate treatment plan |
+| `GET` | `/aquasense/farm-intelligence` | Session-based farm health analytics |
 
 ### Example — Single Prediction
 
 ```bash
-curl -X POST http://localhost:8000/aquaguard/predict \
+curl -X POST http://localhost:8000/aquasense/predict \
   -H "Authorization: Bearer <jwt_token>" \
   -F "file=@fish_photo.jpg"
 ```

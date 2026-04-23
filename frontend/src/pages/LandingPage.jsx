@@ -20,7 +20,7 @@ const NAV_LINKS = [
 /* ─── Feature data ───────────────────────────────────────────────────────── */
 const FEATURES = [
   { icon: Camera,       title: 'Instant Image Detection',    desc: 'Upload a fish photo and get an AI diagnosis with disease class, confidence score, and severity in seconds.', tag: 'CORE' },
-  { icon: Video,        title: 'Video Frame Analysis',       desc: 'Submit a short video clip — AquaGuard extracts 5 key frames and aggregates disease findings automatically.', tag: 'VIDEO' },
+  { icon: Video,        title: 'Video Frame Analysis',       desc: 'Submit a short video clip — AquaSense extracts 5 key frames and aggregates disease findings automatically.', tag: 'VIDEO' },
   { icon: BarChart2,    title: 'Farm Health Dashboard',      desc: 'Track fish health scores, infection alerts, disease trends, and confidence metrics across your farm.', tag: 'ANALYTICS' },
   { icon: MessageCircle,title: 'AI Farmer Chatbot',          desc: 'Ask questions in plain language — powered by Gemini AI with deep aquaculture knowledge for instant answers.', tag: 'CHAT' },
   { icon: ShieldCheck,  title: 'Treatment Recommendations',  desc: 'Every diagnosis comes with actionable treatment plans, medication advice, and water management tips.', tag: 'ACTIONABLE' },
@@ -119,7 +119,7 @@ const Navbar = () => {
         {/* Logo */}
         <button className="lp-nav-logo" onClick={() => scrollTo('#top')}>
           <div className="lp-nav-logo-icon"><Fish size={18} /></div>
-          <span className="lp-nav-logo-text">AquaGuard<span>AI</span></span>
+          <span className="lp-nav-logo-text">AquaSense<span>AI</span></span>
         </button>
 
         {/* Desktop links */}
@@ -222,7 +222,7 @@ const HeroSection = () => {
           </motion.h1>
 
           <motion.p className="lp-hero-sub" {...fadeUp(0.3)}>
-            AquaGuard uses transfer learning to detect freshwater fish diseases from images and videos,
+            AquaSense uses transfer learning to detect freshwater fish diseases from images and videos,
             providing instant diagnoses, severity scores, and treatment recommendations for fish farmers.
           </motion.p>
 
@@ -298,7 +298,7 @@ const FeaturesSection = () => (
         <span className="lp-section-eyebrow">CAPABILITIES</span>
         <h2 className="lp-section-h2">Everything a fish farmer needs</h2>
         <p className="lp-section-sub">
-          From instant disease detection to AI-powered treatment guidance — AquaGuard is a complete fish health platform.
+          From instant disease detection to AI-powered treatment guidance — AquaSense is a complete fish health platform.
         </p>
       </motion.div>
       <div className="lp-features-grid">
@@ -325,7 +325,7 @@ const DiseaseTypesSection = () => (
         <span className="lp-section-eyebrow">DISEASE DETECTION</span>
         <h2 className="lp-section-h2">7 disease classes. One platform.</h2>
         <p className="lp-section-sub">
-          AquaGuard detects Aeromoniasis, Gill Disease, Red Disease, Fungal, Parasitic, Viral infections, and Healthy fish.
+          AquaSense detects Aeromoniasis, Gill Disease, Red Disease, Fungal, Parasitic, Viral infections, and Healthy fish.
         </p>
       </motion.div>
       <div className="lp-types-grid">
@@ -396,7 +396,7 @@ const BenefitsSection = () => (
           Built for aquaculture<br/>farmers and businesses
         </h2>
         <p className="lp-section-sub" style={{ textAlign: 'left', maxWidth: '400px' }}>
-          AquaGuard replaces slow manual inspection with a fast, AI-powered fish health monitoring pipeline.
+          AquaSense replaces slow manual inspection with a fast, AI-powered fish health monitoring pipeline.
         </p>
       </motion.div>
       <div className="lp-benefits-list">
@@ -450,7 +450,7 @@ const Footer = () => {
       <div className="lp-container lp-footer-inner">
         <div className="lp-footer-brand">
           <div className="lp-footer-logo">
-            <Fish size={18}/> AquaGuard<span>AI</span>
+            <Fish size={18}/> AquaSense<span>AI</span>
           </div>
           <p className="lp-footer-tagline">
             AI-powered fish disease detection for aquaculture farmers — faster diagnosis, healthier fish.
@@ -470,7 +470,7 @@ const Footer = () => {
         </div>
       </div>
       <div className="lp-footer-bar">
-        <span>© 2026 AquaGuard AI. Built for aquaculture health monitoring.</span>
+        <span>© 2026 AquaSense AI. Built for aquaculture health monitoring.</span>
       </div>
     </footer>
   );

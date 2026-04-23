@@ -1,5 +1,5 @@
 """
-AquaGuard — Farm Intelligence Engine
+AquaSense — Farm Intelligence Engine
 =====================================
 Pure computation layer: derives health score, risk level, trend analysis,
 and smart insights from real scan session data.

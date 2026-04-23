@@ -1,5 +1,5 @@
 /**
- * AquaGuard — Treatment & Action Page
+ * AquaSense — Treatment & Action Page
  * Reads plan from localStorage (set by BatchScanPage after /treatment-plan call).
  * Shows: Farm Risk Panel → Farm Action Plan → Per-Fish Treatment Cards
  */

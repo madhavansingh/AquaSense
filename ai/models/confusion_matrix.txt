@@ -1,4 +1,4 @@
-AquaGuard v6 — Confusion Matrix
+AquaSense v6 — Confusion Matrix
 
 Bacte  Bacte  Bacte  Funga  Healt  Paras  Viral
 Bacterial Red disease      98      1      0      0      1      0      0

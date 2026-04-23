@@ -95,17 +95,17 @@ async def lifespan(app: FastAPI):
     except Exception as e:
         print(f"Warning: Model loading issue at startup: {str(e)}")
 
-    # ── AquaGuard fish disease model ─────────────────────────────────
+    # ── AquaSense fish disease model ─────────────────────────────────
     try:
-        from services.aquaguard_service import load_all as _aq_load
+        from services.aquasense_service import load_all as _aq_load
         ok = _aq_load()
         if ok:
-            print("[AquaGuard] Fish disease model loaded and ready ✅")
+            print("[AquaSense] Fish disease model loaded and ready ✅")
         else:
-            print("[AquaGuard] ⚠️  Model not found — run ai/train_model.py first. "
+            print("[AquaSense] ⚠️  Model not found — run ai/train_model.py first. "
                   "Endpoints will return a friendly error until the model is available.")
     except Exception as _aq_err:
-        print(f"[AquaGuard] Startup warning: {_aq_err}")
+        print(f"[AquaSense] Startup warning: {_aq_err}")
     # ─────────────────────────────────────────────────────────────────
 
     yield
@@ -1760,11 +1760,11 @@ async def mobile_ping(session_id: str):
 # ═══════════════════════════════════════════════════════════════════════════
 # AQUAGUARD — Fish Disease Detection Routes
 # ═══════════════════════════════════════════════════════════════════════════
-from services.aquaguard_service import (
-    aquaguard_predict      as _aq_predict,
-    aquaguard_predict_hint as _aq_predict_hint,
-    aquaguard_video        as _aq_video,
-    aquaguard_chat         as _aq_chat,
+from services.aquasense_service import (
+    aquasense_predict      as _aq_predict,
+    aquasense_predict_hint as _aq_predict_hint,
+    aquasense_video        as _aq_video,
+    aquasense_chat         as _aq_chat,
     aq_model_status        as _aq_status,
 )
 from services.bulk_predict_service import (
@@ -1775,16 +1775,16 @@ from services.bulk_predict_service import (
 from services.treatment_service import generate_treatment_plan as _aq_treatment
 
 
-@app.get("/aquaguard/status")
-async def aquaguard_status():
-    """Returns whether the AquaGuard ML model is loaded and ready."""
+@app.get("/aquasense/status")
+async def aquasense_status():
+    """Returns whether the AquaSense ML model is loaded and ready."""
     return _aq_status()
 
 
-@app.post("/aquaguard/predict")
-async def aquaguard_predict_endpoint(file: UploadFile = File(...)):
+@app.post("/aquasense/predict")
+async def aquasense_predict_endpoint(file: UploadFile = File(...)):
     """
-    POST /aquaguard/predict
+    POST /aquasense/predict
     Upload a fish image → get disease, confidence, severity, treatment, tips.
     Uses filename-hint fallback when model confidence is low.
     """
@@ -1800,10 +1800,10 @@ async def aquaguard_predict_endpoint(file: UploadFile = File(...)):
     return JSONResponse(content=_safe_json(result))
 
 
-@app.post("/aquaguard/video")
-async def aquaguard_video_endpoint(file: UploadFile = File(...)):
+@app.post("/aquasense/video")
+async def aquasense_video_endpoint(file: UploadFile = File(...)):
     """
-    POST /aquaguard/video
+    POST /aquasense/video
     Upload a video → extract 5 frames, predict each, return dominant disease + infected count.
     """
     data = await file.read()
@@ -1822,10 +1822,10 @@ class AQChatPayload(BaseModel):
     last_result: Optional[dict] = None
 
 
-@app.post("/aquaguard/chat")
-async def aquaguard_chat_endpoint(payload: AQChatPayload):
+@app.post("/aquasense/chat")
+async def aquasense_chat_endpoint(payload: AQChatPayload):
     """
-    POST /aquaguard/chat
+    POST /aquasense/chat
     Ask a fish-health question. Optionally pass the last scan result for context.
     """
     question = payload.question.strip()
@@ -1840,14 +1840,14 @@ async def aquaguard_chat_endpoint(payload: AQChatPayload):
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# POST /aquaguard/bulk-predict
+# POST /aquasense/bulk-predict
 # Accepts up to 30 fish images, returns per-image results + batch summary.
 # ─────────────────────────────────────────────────────────────────────────────
 
-@app.post("/aquaguard/bulk-predict")
-async def aquaguard_bulk_predict(files: List[UploadFile] = File(...)):
+@app.post("/aquasense/bulk-predict")
+async def aquasense_bulk_predict(files: List[UploadFile] = File(...)):
     """
-    POST /aquaguard/bulk-predict
+    POST /aquasense/bulk-predict
 
     Upload 1–30 fish images (jpg/jpeg/png).
     Returns structured per-image classification + batch-level summary.
@@ -1944,7 +1944,7 @@ async def aquaguard_bulk_predict(files: List[UploadFile] = File(...)):
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# POST /aquaguard/treatment-plan
+# POST /aquasense/treatment-plan
 # Converts predict / bulk-predict results → per-fish + farm-level action plan
 # ─────────────────────────────────────────────────────────────────────────────
 
@@ -1952,10 +1952,10 @@ class _TreatmentRequest(BaseModel):
     results: list[dict]
 
 
-@app.post("/aquaguard/treatment-plan")
-async def aquaguard_treatment_plan(payload: _TreatmentRequest):
+@app.post("/aquasense/treatment-plan")
+async def aquasense_treatment_plan(payload: _TreatmentRequest):
     """
-    POST /aquaguard/treatment-plan
+    POST /aquasense/treatment-plan
 
     Body: { "results": [ { id, disease, confidence, severity }, ... ] }
 
@@ -2007,7 +2007,7 @@ async def aquaguard_treatment_plan(payload: _TreatmentRequest):
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# POST /aquaguard/session-store
+# POST /aquasense/session-store
 # Frontend pushes a completed batch snapshot here for trend analysis.
 # ─────────────────────────────────────────────────────────────────────────────
 
@@ -2024,10 +2024,10 @@ class _SessionStorePayload(BaseModel):
     summary:   dict
 
 
-@app.post("/aquaguard/session-store")
-async def aquaguard_session_store(payload: _SessionStorePayload):
+@app.post("/aquasense/session-store")
+async def aquasense_session_store(payload: _SessionStorePayload):
     """
-    POST /aquaguard/session-store
+    POST /aquasense/session-store
 
     Frontend pushes a completed scan batch here so the backend can maintain
     a rolling history for trend analysis.
@@ -2049,17 +2049,17 @@ async def aquaguard_session_store(payload: _SessionStorePayload):
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# GET /aquaguard/farm-insights
+# GET /aquasense/farm-insights
 # Returns health score, risk level, trend, insights from real session data.
 # ─────────────────────────────────────────────────────────────────────────────
 
 from services.farm_intelligence import compute_farm_insights as _aq_farm_insights
 
 
-@app.get("/aquaguard/farm-insights")
-async def aquaguard_farm_insights():
+@app.get("/aquasense/farm-insights")
+async def aquasense_farm_insights():
     """
-    GET /aquaguard/farm-insights
+    GET /aquasense/farm-insights
 
     Computes real-time farm intelligence from stored session snapshots.
     No mock data — uses only real scan results pushed via /session-store.

@@ -1,6 +1,6 @@
-# AquaGuard Knowledge Base
+# AquaSense Knowledge Base
 
-This document provides simple, farmer-friendly explanations for common fish diseases detected by AquaGuard. 
+This document provides simple, farmer-friendly explanations for common fish diseases detected by AquaSense. 
 
 ## 1. Aeromoniasis
 *   **Short Description:** A common bacterial infection that attacks the skin and internal organs.

@@ -109,7 +109,7 @@ export const SystemProvider = ({ children }) => {
     });
 
     // Push to backend for server-side farm-insights endpoint
-    fetch('/api/aquaguard/session-store', {
+    fetch('/api/aquasense/session-store', {
       method:  'POST',
       headers: { 'Content-Type': 'application/json' },
       body:    JSON.stringify(entry),

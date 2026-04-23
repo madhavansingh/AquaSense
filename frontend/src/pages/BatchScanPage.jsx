@@ -1,6 +1,6 @@
 /**
- * AquaGuard — Batch Scan Page
- * POST /api/aquaguard/bulk-predict
+ * AquaSense — Batch Scan Page
+ * POST /api/aquasense/bulk-predict
  * Supports up to 30 images with hybrid AI + filename-hint classification.
  */
 
@@ -165,7 +165,7 @@ export default function BatchScanPage() {
     files.forEach(({ file }) => form.append('files', file));
 
     try {
-      const res = await fetch(`${API_BASE}/aquaguard/bulk-predict`, {
+      const res = await fetch(`${API_BASE}/aquasense/bulk-predict`, {
         method: 'POST',
         body: form,
       });
@@ -201,7 +201,7 @@ export default function BatchScanPage() {
     setTreatLoading(true);
     setError('');
     try {
-      const res = await fetch(`${API_BASE}/aquaguard/treatment-plan`, {
+      const res = await fetch(`${API_BASE}/aquasense/treatment-plan`, {
         method : 'POST',
         headers: { 'Content-Type': 'application/json' },
         body   : JSON.stringify({ results: results.results }),

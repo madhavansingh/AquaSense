@@ -1,5 +1,5 @@
 """
-AquaGuard — Treatment & Prevention Engine
+AquaSense — Treatment & Prevention Engine
 ==========================================
 Converts /predict and /bulk-predict results → actionable treatment plans.
 
@@ -18,7 +18,7 @@ import os
 from collections import Counter
 from typing import Optional
 
-log = logging.getLogger("aquaguard.treatment")
+log = logging.getLogger("aquasense.treatment")
 
 # ─────────────────────────────────────────────────────────────────────────────
 # LOAD KNOWLEDGE BASE (once at import time)

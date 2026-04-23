@@ -1,4 +1,4 @@
-# Contributing to AquaGuard
+# Contributing to AquaSense
 
 Thank you for your interest in contributing! This document outlines how to get involved.
 

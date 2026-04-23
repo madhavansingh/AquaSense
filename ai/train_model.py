@@ -1,5 +1,5 @@
 """
-AquaGuard — Fish Disease Classification Training Pipeline v6
+AquaSense — Fish Disease Classification Training Pipeline v6
 Model  : EfficientNetB0 (Transfer Learning)
 Dataset: Freshwater Fish Disease Aquaculture in South Asia
 
@@ -24,7 +24,7 @@ Usage:
     python train_model.py
 
 Outputs (ai/models/):
-    aquaguard_model.keras  aquaguard_model.h5
+    aquasense_model.keras  aquasense_model.h5
     class_labels.json  model_config.json
     training_history.json  confusion_matrix.txt
 """
@@ -78,7 +78,7 @@ UNFREEZE_LAYERS = 50       # more layers unfrozen for better fine-tuning
 SEED            = 42
 
 print("\n" + "═" * 65)
-print("  AquaGuard — Training Pipeline v6 (EfficientNetB0)")
+print("  AquaSense — Training Pipeline v6 (EfficientNetB0)")
 print("═" * 65)
 print(f"  TensorFlow : {tf.__version__}")
 print(f"  Keras      : {tf.keras.__version__}")
@@ -429,7 +429,7 @@ for i, row in enumerate(cm):
 
 cm_path = os.path.join(MODEL_DIR, "confusion_matrix.txt")
 with open(cm_path, "w") as f:
-    f.write("AquaGuard v6 — Confusion Matrix\n\n")
+    f.write("AquaSense v6 — Confusion Matrix\n\n")
     f.write(header.strip() + "\n")
     for i, row in enumerate(cm):
         f.write(f"{names[i]:<24}" + "  ".join(f"{v:>5}" for v in row) + "\n")
@@ -442,8 +442,8 @@ with open(cm_path, "w") as f:
 # 9. SAVE
 # ─────────────────────────────────────────────────────────────────────────────
 
-keras_path = os.path.join(MODEL_DIR, "aquaguard_model.keras")
-h5_path    = os.path.join(MODEL_DIR, "aquaguard_model.h5")
+keras_path = os.path.join(MODEL_DIR, "aquasense_model.keras")
+h5_path    = os.path.join(MODEL_DIR, "aquasense_model.h5")
 model.save(keras_path)
 print(f"\n  ✅  Model (.keras)   → {keras_path}")
 model.save(h5_path)
@@ -477,5 +477,5 @@ elapsed = time.time() - t_start
 print(f"  ✅  Config/History/Labels saved")
 print(f"\n  ⏱️   Total time: {elapsed / 60:.1f} min")
 print(f"\n{'═' * 65}")
-print("  AquaGuard v6 training complete. 🐟")
+print("  AquaSense v6 training complete. 🐟")
 print(f"{'═' * 65}\n")

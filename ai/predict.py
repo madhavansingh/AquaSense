@@ -1,5 +1,5 @@
 """
-AquaGuard — Inference Engine v3
+AquaSense — Inference Engine v3
 Loads the trained EfficientNetB0 model and returns disease predictions.
 
 Key improvements over v2
@@ -28,8 +28,8 @@ from PIL import Image
 # ─────────────────────────────────────────────────────────────────
 SCRIPT_DIR      = os.path.dirname(os.path.abspath(__file__))
 # Try .keras first (v3 EfficientNetB0), fall back to .h5 (v2 MobileNetV2)
-_KERAS_PATH     = os.path.join(os.path.dirname(os.path.abspath(__file__)), "models", "aquaguard_model.keras")
-_H5_PATH        = os.path.join(os.path.dirname(os.path.abspath(__file__)), "models", "aquaguard_model.h5")
+_KERAS_PATH     = os.path.join(os.path.dirname(os.path.abspath(__file__)), "models", "aquasense_model.keras")
+_H5_PATH        = os.path.join(os.path.dirname(os.path.abspath(__file__)), "models", "aquasense_model.h5")
 MODEL_PATH      = _KERAS_PATH if os.path.exists(_KERAS_PATH) else _H5_PATH
 LABELS_PATH     = os.path.join(SCRIPT_DIR, "models", "class_labels.json")
 CONFIG_PATH     = os.path.join(SCRIPT_DIR, "models", "model_config.json")
@@ -107,12 +107,12 @@ def load_resources():
                 "Run ai/train_model.py first."
             )
         arch = _cfg.get("architecture", "MobileNetV2")
-        print(f"[AquaGuard] Loading {arch} model from {os.path.basename(model_file)}…")
+        print(f"[AquaSense] Loading {arch} model from {os.path.basename(model_file)}…")
         _model = tf.keras.models.load_model(model_file)
         # warm-up pass so first real request isn't slow
         dummy = np.zeros((1, *IMG_SIZE, 3), dtype=np.float32)
         _model.predict(dummy, verbose=0)
-        print("[AquaGuard] Model ready.")
+        print("[AquaSense] Model ready.")
 
     if _class_labels is None:
         with open(LABELS_PATH, "r") as f:
@@ -207,7 +207,7 @@ def _top_n_names(probs: np.ndarray, n: int = 2) -> list[str]:
 
 
 # ─────────────────────────────────────────────────────────────────
-# CORE PREDICT  —  called by aquaguard_service.py AND standalone CLI
+# CORE PREDICT  —  called by aquasense_service.py AND standalone CLI
 # ─────────────────────────────────────────────────────────────────
 
 def predict(image_input) -> dict:
@@ -328,7 +328,7 @@ if __name__ == "__main__":
     result = predict(image_path)
 
     print("\n" + "=" * 60)
-    print("  AquaGuard — Disease Prediction Result")
+    print("  AquaSense — Disease Prediction Result")
     print("=" * 60)
 
     if result.get("uncertain"):

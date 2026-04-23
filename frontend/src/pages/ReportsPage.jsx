@@ -186,7 +186,7 @@ const ReportsPage = () => {
       const href = URL.createObjectURL(blob);
       const a    = document.createElement('a');
       a.href = href;
-      a.download = `aquaguard_report_${Date.now()}.${format}`;
+      a.download = `aquasense_report_${Date.now()}.${format}`;
       a.click();
       URL.revokeObjectURL(href);
       toast.success(`${format.toUpperCase()} downloaded successfully`);
@@ -201,7 +201,7 @@ const ReportsPage = () => {
         const blob = new Blob([csv], { type: 'text/csv' });
         const href = URL.createObjectURL(blob);
         const a = document.createElement('a');
-        a.href = href; a.download = `aquaguard_report_${Date.now()}.csv`; a.click();
+        a.href = href; a.download = `aquasense_report_${Date.now()}.csv`; a.click();
         URL.revokeObjectURL(href);
       }
     } finally { setter(false); }

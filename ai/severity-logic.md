@@ -1,6 +1,6 @@
 # Severity Assessment Logic
 
-AquaGuard uses a dynamic logic system to assign a "Severity" badge (Mild, Moderate, Severe, or Uncertain) to a diagnosis. Because we rely on image classification, the AI's **Confidence Score** is the primary driver for how aggressively we advise the farmer to act.
+AquaSense uses a dynamic logic system to assign a "Severity" badge (Mild, Moderate, Severe, or Uncertain) to a diagnosis. Because we rely on image classification, the AI's **Confidence Score** is the primary driver for how aggressively we advise the farmer to act.
 
 We map AI Confidence directly to Severity to ensure safety. We do not want to recommend harsh chemicals (Severe action) if the AI is unsure.
 

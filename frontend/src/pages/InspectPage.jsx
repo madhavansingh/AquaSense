@@ -521,7 +521,7 @@ const InspectPage = () => {
     if (fileInputRef.current) fileInputRef.current.value = '';
   };
 
-  /* ── Submit to real AquaGuard API ── */
+  /* ── Submit to real AquaSense API ── */
   const analyseFile = async (fileToSend) => {
     if (!fileToSend) return;
     // Client-side validation
@@ -539,7 +539,7 @@ const InspectPage = () => {
     try {
       const fd = new FormData();
       fd.append('file', fileToSend);
-      const res  = await fetch(`${API_BASE}/aquaguard/predict`, { method: 'POST', body: fd });
+      const res  = await fetch(`${API_BASE}/aquasense/predict`, { method: 'POST', body: fd });
       const data = await res.json();
       if (!res.ok) {
         const msg = data.detail || '';
@@ -612,7 +612,7 @@ const InspectPage = () => {
     try {
       const fd = new FormData();
       fd.append('file', videoFile);
-      const res  = await fetch(`${API_BASE}/aquaguard/video`, { method: 'POST', body: fd });
+      const res  = await fetch(`${API_BASE}/aquasense/video`, { method: 'POST', body: fd });
       const data = await res.json();
       if (!res.ok) {
         setVideoError(data.detail || 'Video analysis failed. Please try again.');
@@ -725,7 +725,7 @@ const InspectPage = () => {
       <header className="ip-header">
         <div className="ip-header-left">
           <h1 className="ip-title">Fish Scan</h1>
-          <span className="ip-subtitle">AI-Powered Disease Detection · AquaGuard</span>
+          <span className="ip-subtitle">AI-Powered Disease Detection · AquaSense</span>
         </div>
       </header>
 
